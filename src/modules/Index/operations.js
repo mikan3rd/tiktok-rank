@@ -2,7 +2,8 @@
 import {put, takeLatest, call} from 'redux-saga/effects';
 
 import Actions from './actions';
-import {SearchApi, ChargeApi} from '../../helpers/api';
+import {ChargeApi, HotpepperApi} from '../../helpers/api';
+import ShopListPage from '../../components/ShopListPage';
 
 export default function* (): Generator<*, *, *> {
   yield takeLatest(Actions.getSearchResult, getSearchResult);
@@ -10,11 +11,16 @@ export default function* (): Generator<*, *, *> {
 }
 
 function* getSearchResult(action) : Generator<*, *, *> {
+  yield put(Actions.changeValueForKey({key: 'message', value: 'お店を検索中...'}));
   yield put(Actions.changeValueForKey({key: 'isLoading', value: true}));
-  const params = action.payload;
+  const {params, navigator} = action.payload;
   console.log("params:", params);
-  const response = yield call(SearchApi.get, params);
-  yield put(Actions.changeValueForKey({key: 'results', value: response.data}));
+  const response = yield call(HotpepperApi.get, params);
+  console.log(response);
+  if (response.status === 200) {
+    yield put(Actions.changeValueForKey({key: 'searchResult', value: response.data.results}));
+    navigator.pushPage({component: ShopListPage, key: 'ShopListPage'});
+  }
   yield put(Actions.changeValueForKey({key: 'isLoading', value: false}));
 }
 

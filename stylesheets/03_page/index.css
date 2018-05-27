@@ -1,237 +1,152 @@
 .p-index {
-  background: #292929;
+  background-color: #292929;
   height: 100%;
   max-width: 600px;
   margin: 0 auto;
 }
 
-.p-index__body {
-  height: calc(100% - 100px);
-  overflow: scroll;
-  -webkit-overflow-scrolling: touch;
-  overflow-scrolling: touch;
+.page__background {
+  background-color: #96523d !important;
 }
 
-.p-index__logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  padding: 20px;
-  height: 80px;
-}
-
-.p-index__logo span {
-  display: inline-block;
-  margin-top: 23px;
-  margin-left: 10px;
-}
-
-.p-index__logo__icon {
-  display: inline-block;
-  width: 50%;
-}
-
-.p-index__video__wrapper {
-  background-color: #292929;
-  border-top: 1px solid gray;
-}
-
-.p-index__video {
-  position: relative;
-  display: flex;
-  background: #292929;
-}
-
-.p-index__video__right {
-  color: white;
-  margin: 0 10px;
-}
-
-.p-index__video__right > div {
-
-  }
-
-.p-index__video__date {
-  color: gray;
-  font-size: 12px;
-  margin-top: 2px !important;
-}
-
-.p-index__video__title {
-  position:relative;
-  z-index: 1;
-  font-size: 15px;
-  line-height: 120%;
-  font-weight: bold;
-}
-
-.p-index__video__channel {
-  font-size: 13px;
-}
-
-.p-index__video__statistics {
-  display: flex;
-  align-items: center;
-}
-
-.p-index__video__statistics > div{
-  margin: 0 5px 0 2px;
-  font-size: 12px;
-}
-
-.p-index__video__rank {
-  position: absolute;
-  color: gray;
-  font-size: 60px;
-  right: 15px;
-  bottom: 20px;
-  font-weight: bold;
-  letter-spacing: -5px;
-  z-index: 0;
-}
-
-.p-index__video__statistics__icon {
-  fill: #e62117;
-}
-
-.p-index__search-box {
-  max-width: 600px;
-  position: fixed;
-  bottom: 0;
-  background-color: #e62117;
+.c-first-page__logo img {
   width: 100%;
-  height: 100px;
-  padding: 10px 10px 0 10px;
 }
 
-.p-index__search-box__top {
+.c-first-page__description {
+  color: #f2e6b1;
+  margin-bottom: 40px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.c-first-page__search {
   display: flex;
   align-items: center;
   justify-content: space-around;
-}
-
-.p-index__search-box__input {
-  display: inline-block;
-  border: none;
-  width: 60%;
-  height: 60%;
-}
-
-.p-index__search-box__icon {
-  background-color: #e62117;
-  border-radius: 50%;
-  border: 2px solid white;
+  color: #f2e6b1;
+  border: solid 2px #f2e6b1;
+  border-radius: 5px;
+  margin: auto;
   padding: 10px;
-}
-
-.p-index__search-box__bottom {
-  padding: 10px 0;
-  width: 100%;
-  overflow-x: scroll;
-  -webkit-overflow-scrolling: touch;
-  overflow-scrolling: touch;
-  white-space: nowrap;
-  color: white;
-}
-
-.p-index__search-box__bottom__tag {
-  display: inline-block;
-  padding: 0 5px;
+  width: 200px;
   font-weight: bold;
+  cursor: pointer;
 }
 
-.p-index__side__select {
-  background-color: white;
-  padding: 5px 10px;
-}
-
-.p-index__side__contact__button {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 10px 5px;
-  background: white;
-}
-
-.p-index__side__contact__button__child {
-  width: 80%;
-}
-
-.p-index__side__contact__button__inner {
-  font-size: 12px;
-}
-
-.p-index__side__switch {
-  display: flex;
-  font-size: 12px;
-  align-items: center;
-  padding: 5px;
-  background-color: white;
-}
-
-.p-index__side__switch p {
-  margin-left: 5px;
-}
-
-.p-index__error-message {
-  color: white;
+.c-first-page__alert {
   text-align: center;
-  margin: 30px;
+  margin-bottom: 10px;
+  padding: 10px;
+  white-space: pre-wrap;
 }
 
-.p-index__md-devices-off {
-  margin: 10px;
-  font-size: 40px;
-}
-
-.c-stripe__modal {
-  height: 100%;
-  margin: 20px auto;
-  background-color: white;
-}
-
-.c-stripe__modal__top {
-  background-color: green;
+.c-first-page__alert > div {
   font-weight: bold;
-  padding: 20px;
+  margin-bottom: 15px;
 }
 
-.c-stripe__modal__top__close {
+.c-shop-list-page__top {
+  text-align: center;
+  margin-top: 20px;
+  color: #f2e6b1;
+  font-weight: bold;
+}
+
+.c-shop-list-page__card {
+  margin: 20px;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.c-shop-list-page__card__image-box__wrapper {
+  width: 100%;
+}
+
+.c-shop-list-page__card__image-box {
+  padding-top: 66.6%;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.c-shop-list-page__card__image-box__image {
   position: absolute;
-  right: 10px;
-  top: 10px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
 }
 
-.c-stripe__modal__content {
-  margin: 10px 20px;
+.c-shop-list-page__card__image-box__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
-.c-stripe__modal__content > div {
-  margin: 20px 0;
-}
-
-.c-stripe__modal__content__input {
-  border: 1px solid gray;
-  border-radius: 4px;
+.c-shop-list-page__card__content {
+  position: relative;
+  max-height: 270px;
+  overflow: scroll;
   padding: 10px;
 }
 
-.c-stripe__modal__content label {
-  display: block;
-  color: black;
-  text-align: left;
+.c-shop-list-page__card__content > div {
+  margin: 5px 0;
 }
 
-.c-stripe__modal__bottom {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  bottom: 0;
-  background-color: green;
-  width: 100%;
-  height: 80px;
+.c-shop-list-page__card__content__name-kana {
+  color: gray;
+  font-size: 6px;
+  margin-top: 5px !important;
+  padding-right: 150px;
+}
+
+.c-shop-list-page__card__content__name {
   font-weight: bold;
+  line-height: 1.2;
+}
+
+.c-shop-list-page__card__content__open {
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.c-shop-list-page__card__content__close {
+  font-size: 12px;
+  color: red;
+}
+
+.c-shop-list-page__card__content__ganre-catch {
+}
+
+.c-shop-list-page__card__content__food-name {
+  position: absolute;
+  top: -5px;
+  right: 0px;
+  background-color: #f2e6b1;
+  padding: 5px;
+  font-size: 14px;
+  max-width: 150px;
+}
+
+.c-shop-list-page__bottom {
+  position: fixed;
+  bottom: 30px;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.c-shop-list-page__bottom__button {
+  width: 200px !important;
+  background-color: #96523d !important;
+  border: solid 2px #f2e6b1 !important;
+  border-radius: 5px !important;
+  color: #f2e6b1 !important;
+  font-weight: bold !important;
 }

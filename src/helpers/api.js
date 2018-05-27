@@ -2,10 +2,10 @@ import ApiClient from './ApiClient';
 
 const client = new ApiClient();
 
-class SearchApi {
+class GnaviApi {
 
   static async get(params) {
-    const endpoint = '/search';
+    const endpoint = '/gnavi';
 
     try {
       return await client.request('GET', endpoint, params);
@@ -15,6 +15,20 @@ class SearchApi {
     }
   }
 }
+
+class HotpepperApi {
+
+    static async get(params) {
+      const endpoint = '/hotpepper';
+
+      try {
+        return await client.request('GET', endpoint, params);
+      } catch (e) {
+        console.log('エラー:', e);
+        return {data: []};
+      }
+    }
+  }
 
 class ChargeApi {
 
@@ -32,6 +46,7 @@ class ChargeApi {
 
 
 export {
-  SearchApi,
+  GnaviApi,
+  HotpepperApi,
   ChargeApi,
 };
