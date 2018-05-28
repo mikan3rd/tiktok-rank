@@ -56,9 +56,9 @@ class ShopListPage extends React.Component {
                 swipeable={true}
                 autoScroll={true}
                 overscrollable={true}
+                autoScrollRatio={0.1}
             >
             {searchResult.shop.map((result, index) => {
-                console.log(result);
                 return (
                 <CarouselItem key={index}>
                     <div className="c-shop-list-page__card">
