@@ -1,29 +1,29 @@
 {
-  "short_name": "YouTubeRank",
-  "name": "YouTubeランキング検索",
+  "short_name": "Ottimo!!",
+  "name": "Ottimo!!",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#001a3c",
   "background_color": "#001a3c",
   "icons": [
     {
-      "src": "favicon.ico",
-      "type": "image/png",
+      "src": "./images/logo.jpg",
+      "type": "image/jpg",
       "sizes": "48x48"
     },
     {
-      "src": "favicon.ico",
-      "type": "image/png",
+      "src": "./images/logo.jpg",
+      "type": "image/jpg",
       "sizes": "96x96"
     },
     {
-      "src": "favicon.ico",
-      "type": "image/png",
+      "src": "./images/logo.jpg",
+      "type": "image/jpg",
       "sizes": "192x192"
     },
     {
-      "src": "favicon.ico",
-      "type": "image/png",
+      "src": "./images/logo.jpg",
+      "type": "image/jpg",
       "sizes": "512x512"
     }
   ]
