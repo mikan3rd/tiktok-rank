@@ -74,7 +74,7 @@ class FirstPage extends React.Component {
     } = index;
 
     return (
-      <Page>
+      <Page className="p-index">
           <Modal
             isOpen={isLoading}
             animation="fade"

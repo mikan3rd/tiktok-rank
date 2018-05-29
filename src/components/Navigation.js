@@ -138,7 +138,10 @@ class Navigation extends React.Component {
     } = index;
 
     return (
-      <Page renderToolbar={this.renderToolbar}>
+      <Page
+        className="p-index"
+        renderToolbar={this.renderToolbar}
+      >
         <MyMapComponent
           position={position}
           pastPosition={pastPosition}

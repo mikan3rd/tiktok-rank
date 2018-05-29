@@ -34,18 +34,18 @@ class ShopListPage extends React.Component {
       } = index;
 
     return (
-      <Page>
-          <Modal
-            isOpen={isLoading}
-            animation="fade"
-          >
-            <div className="modal__body">
-              <p className="modal__message">{message}</p>
-              <div className="loading-modal">
-                <div className="pac-man" />
-              </div>
+      <Page className="p-index">
+        <Modal
+          isOpen={isLoading}
+          animation="fade"
+        >
+          <div className="modal__body">
+            <p className="modal__message">{message}</p>
+            <div className="loading-modal">
+              <div className="pac-man" />
             </div>
-          </Modal>
+          </div>
+        </Modal>
           <div className="c-shop-list-page">
             <div className="c-shop-list-page__top">
               {searchResult.shop[0].small_area.name}付近のお店
