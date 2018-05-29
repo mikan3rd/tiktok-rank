@@ -40,6 +40,9 @@ const MyMapComponent = compose(
       }
     })
   )(props => {
+      const pastPosition = new google.maps.LatLng(props.pastPosition.lat, props.pastPosition.lng);
+      const position = new google.maps.LatLng(props.position.lat, props.position.lng);
+      const heading = google.maps.geometry.spherical.computeHeading(pastPosition, position);
       return (
         <GoogleMap
           zoom={15}
@@ -54,7 +57,11 @@ const MyMapComponent = compose(
           />
           <Marker
             position={{lat: props.position.lat, lng: props.position.lng}}
-            icon={{url: './images/current-position.svg'}}
+            icon={{
+              path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+              scale: 6,
+              rotation: heading,
+            }}
           />
         <DirectionsRenderer
           directions={props.directions}
@@ -71,6 +78,10 @@ class Navigation extends React.Component {
       const params = this.props.index.params;
       this.state = {
         watchId: null,
+        pastPosition: {
+          lat: params.get('latitude'),
+          lng: params.get('longitude'),
+        },
         position: {
           lat: params.get('latitude'),
           lng: params.get('longitude'),
@@ -86,14 +97,15 @@ class Navigation extends React.Component {
     componentWillUnmount = () => {
       const {watchId} = this.state;
       navigator.geolocation.clearWatch(watchId);
-      console.log("end");
-
     }
 
     successWatchPosition = (position) => {
       console.log(position);
       const {latitude, longitude}  = position.coords;
-      this.setState({position: {lat: latitude, lng: longitude}});
+      this.setState({
+        position: {lat: latitude, lng: longitude},
+        pastPosition: this.state.position,
+      });
     }
 
     failedWatchPosition = (error) => {
@@ -114,6 +126,7 @@ class Navigation extends React.Component {
   render () {
     const{
       position,
+      pastPosition,
     } = this.state;
 
     const {index} = this.props;
@@ -125,6 +138,7 @@ class Navigation extends React.Component {
       <Page renderToolbar={this.renderToolbar}>
         <MyMapComponent
           position={position}
+          pastPosition={pastPosition}
           naviShop={naviShop}
         />
       </Page>
