@@ -59,7 +59,10 @@ const MyMapComponent = compose(
             position={{lat: props.position.lat, lng: props.position.lng}}
             icon={{
               path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+              fillColor: "#0bb3ea",
+              fillOpacity: 1,
               scale: 6,
+              strokeWeight: 3,
               rotation: heading,
             }}
           />
