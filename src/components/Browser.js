@@ -24,7 +24,7 @@ class Browser extends React.Component {
       <Page renderToolbar={this.renderToolbar}>
         <iframe
           src={naviShop.urls.pc}
-          style={{height: '100%', width: '100vw'}}
+          style={{height: '100%', width: '100%'}}
         />
       </Page>
     );
