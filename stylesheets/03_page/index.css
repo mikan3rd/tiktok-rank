@@ -184,3 +184,53 @@
 .p-index__side__contact__button__inner {
   font-size: 12px;
 }
+
+.c-stripe__modal {
+  height: 100%;
+  margin: 20px auto;
+  background-color: white;
+}
+
+.c-stripe__modal__top {
+  background-color: green;
+  font-weight: bold;
+  padding: 20px;
+}
+
+.c-stripe__modal__top__close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.c-stripe__modal__content {
+  margin: 10px 20px;
+}
+
+.c-stripe__modal__content > div {
+  margin: 20px 0;
+}
+
+.c-stripe__modal__content__input {
+  border: 1px solid gray;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.c-stripe__modal__content label {
+  display: block;
+  color: black;
+  text-align: left;
+}
+
+.c-stripe__modal__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  background-color: green;
+  width: 100%;
+  height: 80px;
+  font-weight: bold;
+}

@@ -19,6 +19,7 @@ import {
 
 import Navigation from './Navigation';
 import Browser from './Browser';
+import MyStoreCheckout from '../components/Stripe/MyStoreCheckout';
 
 
 const rangeList = [
@@ -106,6 +107,7 @@ class ShopListPage extends React.Component {
         index,
         changeValueOfParams,
         changeValueForKey,
+        sendStripeToken,
       } = this.props;
 
       const {
@@ -116,6 +118,7 @@ class ShopListPage extends React.Component {
         foodCategory,
         selectedCategory,
         food,
+        isOpenModal,
       } = index;
 
     return (
@@ -198,6 +201,11 @@ class ShopListPage extends React.Component {
                   >
                     <p className="p-index__side__contact__button__inner">作者にメッセージを送る</p>
                   </Button>
+                  <MyStoreCheckout
+                    isOpenModal={isOpenModal}
+                    changeValueForKey={changeValueForKey}
+                    sendStripeToken={sendStripeToken}
+                />
                 </div>
               </Page>
             </SplitterSide>

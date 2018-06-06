@@ -29,6 +29,7 @@ const IndexRecord = Record({
   foodCategory: [],
   selectedCategory: null,
   food: [],
+  isOpenModal: false,
 });
 
 class Index extends IndexRecord {
