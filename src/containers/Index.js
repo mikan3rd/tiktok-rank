@@ -20,7 +20,6 @@ class Index extends React.Component {
   }
 
   renderPage = (route, navigator) => {
-    // console.log(route, navigator);
     return (
         <route.component
           key={route.key}

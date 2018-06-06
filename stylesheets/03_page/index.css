@@ -1,12 +1,12 @@
 .p-index {
-  background-color: #96523d;
+  background-color: #96523d !important;
   height: 100%;
   max-width: 600px;
   margin: 0 auto;
 }
 
 .page__background {
-  background-color: #96523d !important;
+  /* background-color: #96523d !important; */
 }
 
 .c-first-page__logo img {
@@ -100,7 +100,7 @@
 
 .c-shop-list-page__card__content__name-kana {
   color: gray;
-  font-size: 6px;
+  font-size: 10px;
   margin-top: 5px !important;
   padding-right: 150px;
 }
@@ -149,4 +149,21 @@
   border-radius: 5px !important;
   color: #f2e6b1 !important;
   font-weight: bold !important;
+}
+
+.p-index__side__switch {
+  display: flex;
+  font-size: 12px;
+  align-items: center;
+  padding: 5px;
+  background-color: white;
+}
+
+.p-index__side__switch p {
+  margin-left: 5px;
+}
+
+.p-index__side__select {
+  background-color: white;
+  padding: 5px 10px;
 }

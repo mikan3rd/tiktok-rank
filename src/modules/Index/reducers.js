@@ -5,9 +5,10 @@ import Actions from './actions';
 
 
 let params = Map({
-  query: '',
   latitude: null,
   longitude: null,
+  lunch: 1,
+  range: "3",
 });
 const searchParamsJson = localStorage.getItem('searchParams');
 if (searchParamsJson) {
@@ -32,6 +33,13 @@ class Index extends IndexRecord {
 export default handleActions({
   [Actions.changeValueForKey]: (state, action) => {
     const {key, value} = action.payload;
+    if (key == 'message') {
+      return state.merge({
+        [key]: value,
+        'isLoading': true,
+      })
+    }
+
     return state.set(key, value);
   },
   [Actions.changeValueOfParams]: (state, action) => {

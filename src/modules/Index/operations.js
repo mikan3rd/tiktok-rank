@@ -12,12 +12,9 @@ export default function* (): Generator<*, *, *> {
 
 function* getSearchResult(action) : Generator<*, *, *> {
   yield put(Actions.changeValueForKey({key: 'message', value: 'お店を検索中...'}));
-  yield put(Actions.changeValueForKey({key: 'isLoading', value: true}));
   const {params, navigator} = action.payload;
-  console.log("params:", params);
   const response = yield call(HotpepperApi.get, params);
-  console.log(response);
-  if (response.status === 200) {
+  if (response.status === 200 && navigator) {
     yield put(Actions.changeValueForKey({key: 'searchResult', value: response.data.results}));
     navigator.pushPage({component: ShopListPage, key: 'ShopListPage'});
   }

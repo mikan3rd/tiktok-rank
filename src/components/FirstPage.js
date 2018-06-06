@@ -21,7 +21,6 @@ class FirstPage extends React.Component {
       }
 
       this.props.changeValueForKey({key: 'message', value: '現在地を取得中...'});
-      this.props.changeValueForKey({key: 'isLoading', value: true});
 
       navigator.geolocation.getCurrentPosition(
         this.successGetCurrentPosition,
@@ -74,7 +73,7 @@ class FirstPage extends React.Component {
     } = index;
 
     return (
-      <Page className="p-index">
+      <Page>
           <Modal
             isOpen={isLoading}
             animation="fade"
@@ -98,25 +97,27 @@ class FirstPage extends React.Component {
             OK
           </AlertDialogButton>
         </AlertDialog>
-        <div className="c-first-page">
-          <div className="c-first-page__logo">
-            <img src="./images/logo.jpg" role="presentation" />
-          </div>
-          <div className="c-first-page__description">
-            Ottimo!!（オッティモ!!）は<br />
-            近くの飲食店を<br />
-            簡単に検索できるサービスです。
-          </div>
-          <div
-            className="c-first-page__search"
-            onClick={() => this.getCurrentPosition()}
-          >
-            <Icon
-                icon="md-search"
-                size={30}
-            />
-            <div>
-              現在地から検索する
+        <div className="p-index">
+          <div className="c-first-page">
+            <div className="c-first-page__logo">
+              <img src="./images/logo.jpg" role="presentation" />
+            </div>
+            <div className="c-first-page__description">
+              Ottimo!!（オッティモ!!）は<br />
+              近くの飲食店を<br />
+              簡単に検索できるサービスです。
+            </div>
+            <div
+              className="c-first-page__search"
+              onClick={() => this.getCurrentPosition()}
+            >
+              <Icon
+                  icon="md-search"
+                  size={30}
+              />
+              <div>
+                現在地から検索する
+              </div>
             </div>
           </div>
         </div>
