@@ -16,15 +16,17 @@ import {
   Switch,
   Select,
 } from 'react-onsenui';
+
 import Navigation from './Navigation';
+import Browser from './Browser';
 
 
 const rangeList = [
-  {value: "1", label: '300m'},
-  {value: "2", label: '500m'},
-  {value: "3", label: '1000m'},
-  {value: "4", label: '2000m'},
-  {value: "5", label: '3000m'},
+  {value: "1", label: '300m以内'},
+  {value: "2", label: '500m以内'},
+  {value: "3", label: '1km以内'},
+  {value: "4", label: '2km以内'},
+  {value: "5", label: '3km以内'},
 ]
 
 
@@ -41,13 +43,20 @@ class ShopListPage extends React.Component {
   componentWillReceiveProps = (nextProps) => {
     const {
       params,
+      selectedCategory,
     } = this.props.index;
+
     const nextParams = nextProps.index.params;
+    const nextSelectedCategory = nextProps.index.selectedCategory;
 
     // paramsにその他の変更があった場合
     if (!is(nextParams, params)) {
       const _params = nextParams.toJS();
       this.props.getSearchResult({params: _params});
+    }
+
+    if (nextSelectedCategory !== selectedCategory) {
+      this.props.getFood({food_category: nextSelectedCategory})
     }
   }
 
@@ -55,6 +64,12 @@ class ShopListPage extends React.Component {
     const selectedShop = this.props.index.searchResult.shop[this.state.selectedIndex];
     this.props.changeValueForKey({key: 'naviShop',  value: selectedShop});
     this.props.navigator.pushPage({component: Navigation, key: 'Navigation'});
+  }
+
+  setBrowserShop = () => {
+    const selectedShop = this.props.index.searchResult.shop[this.state.selectedIndex];
+    this.props.changeValueForKey({key: 'naviShop',  value: selectedShop});
+    this.props.navigator.pushPage({component: Browser, key: 'Browser'});
   }
 
   renderToolbar = () => {
@@ -88,6 +103,7 @@ class ShopListPage extends React.Component {
     const {
         index,
         changeValueOfParams,
+        changeValueForKey,
       } = this.props;
 
       const {
@@ -95,7 +111,12 @@ class ShopListPage extends React.Component {
         // isLoading,
         // message,
         searchResult,
+        foodCategory,
+        selectedCategory,
+        food,
       } = index;
+
+    console.log(searchResult);
 
     return (
         <Page>
@@ -114,10 +135,25 @@ class ShopListPage extends React.Component {
               onOpen={() => this.setState({isSideOpen: true})}
             >
               <Page>
+                <ListHeader>フィルター</ListHeader>
+                <div className="p-index__side__switch">
+                  <Switch
+                    checked={params.get('lunch') === 1}
+                    onChange={(e) => changeValueOfParams({key: 'lunch', value: e.target.checked ? 1 : 0})}
+                  />
+                  <p>ランチあり</p>
+                </div>
+                <div className="p-index__side__switch">
+                  <Switch
+                    checked={params.get('wifi') === 1}
+                    onChange={(e) => changeValueOfParams({key: 'wifi', value: e.target.checked ? 1 : 0})}
+                  />
+                  <p>Wi-Fiあり</p>
+                </div>
                 <ListHeader>距離</ListHeader>
                 <div className="p-index__side__select">
                   <Select
-                    value={rangeList.find((category) => category.value === params.get('range')).value}
+                    value={params.get('range')}
                     onChange={(e) => changeValueOfParams({key: 'range', value: e.target.value})}
                   >
                     {rangeList.map((category, index) => {
@@ -127,13 +163,41 @@ class ShopListPage extends React.Component {
                     })}
                   </Select>
                 </div>
-                <ListHeader>フィルター</ListHeader>
-                <div className="p-index__side__switch">
-                  <Switch
-                    checked={params.get('lunch') === 1}
-                    onChange={(e) => changeValueOfParams({key: 'lunch', value: e.target.checked ? 1 : 0})}
-                  />
-                  <p>ランチあり</p>
+                <ListHeader>カテゴリ</ListHeader>
+                <div className="p-index__side__select">
+                  <Select
+                    value={selectedCategory}
+                    onChange={(e) => changeValueForKey({key: 'selectedCategory', value: e.target.value})}
+                  >
+                    {foodCategory.map((category, index) => {
+                      return (
+                        <option key={index} value={category.code}>{category.name}</option>
+                      );
+                    })}
+                  </Select>
+                </div>
+                <ListHeader>料理名</ListHeader>
+                <div className="p-index__side__select">
+                  <Select
+                    value={params.get('food') || null}
+                    onChange={(e) => changeValueOfParams({key: 'food', value: e.target.value})}
+                  >
+                    {food.map((category, index) => {
+                      return (
+                        <option key={index} value={category.code}>{category.name}</option>
+                      );
+                    })}
+                  </Select>
+                </div>
+                <ListHeader>作者について</ListHeader>
+                <div className="p-index__side__contact__button">
+                  <Button
+                    className="p-index__side__contact__button__child"
+                    modifier="outline"
+                    onClick={() => window.open('https://marshmallow-qa.com/mikan_the_third?utm_medium=twitter&utm_source=promotion')}
+                  >
+                    <p className="p-index__side__contact__button__inner">作者にメッセージを送る</p>
+                  </Button>
                 </div>
               </Page>
             </SplitterSide>
@@ -188,6 +252,14 @@ class ShopListPage extends React.Component {
                             </div>
                             <div className="c-shop-list-page__card__content__ganre-catch">
                               {result.genre.catch}
+                            </div>
+                            <div style={{textAlign: 'right'}}>
+                              <Button
+                                onClick={() => this.setBrowserShop()}
+                                modifier="outline"
+                              >
+                                詳細
+                              </Button>
                             </div>
                             <div className="c-shop-list-page__card__content__food-name">
                               {result.food.name}

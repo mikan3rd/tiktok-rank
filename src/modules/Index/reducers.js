@@ -9,11 +9,13 @@ let params = Map({
   longitude: null,
   lunch: 1,
   range: "3",
+  food: null,
+  wifi: 0,
 });
-const searchParamsJson = localStorage.getItem('searchParams');
-if (searchParamsJson) {
-  params = Map(JSON.parse(searchParamsJson));
-}
+// const searchParamsJson = localStorage.getItem('searchParams');
+// if (searchParamsJson) {
+//   params = Map(JSON.parse(searchParamsJson));
+// }
 
 
 const IndexRecord = Record({
@@ -24,6 +26,9 @@ const IndexRecord = Record({
   isSideOpen: false,
   isOpenModal: null,
   naviShop: null,
+  foodCategory: [],
+  selectedCategory: null,
+  food: [],
 });
 
 class Index extends IndexRecord {

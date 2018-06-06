@@ -11,6 +11,10 @@ class FirstPage extends React.Component {
       }
     }
 
+    componentDidMount = () => {
+      this.props.getFoodCategory();
+    }
+
     getCurrentPosition = () => {
       if (!navigator.geolocation) {
         this.setState({

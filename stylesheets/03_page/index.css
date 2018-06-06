@@ -167,3 +167,20 @@
   background-color: white;
   padding: 5px 10px;
 }
+
+.p-index__side__contact__button {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 5px;
+  background: white;
+}
+
+.p-index__side__contact__button__child {
+  width: 80%;
+}
+
+.p-index__side__contact__button__inner {
+  font-size: 12px;
+}

@@ -28,6 +28,29 @@ class HotpepperApi {
         return {data: []};
       }
     }
+
+    static async getFoodCategory() {
+      const endpoint = '/hotpepper/food_category';
+
+      try {
+        return await client.request('GET', endpoint);
+      } catch (e) {
+        console.log('エラー:', e);
+        return {data: []};
+      }
+    }
+
+    static async getFood(params) {
+      const endpoint = '/hotpepper/food';
+
+      try {
+        return await client.request('GET', endpoint, params);
+      } catch (e) {
+        console.log('エラー:', e);
+        return {data: []};
+      }
+    }
+
   }
 
 class ChargeApi {
