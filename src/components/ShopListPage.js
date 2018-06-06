@@ -51,11 +51,13 @@ class ShopListPage extends React.Component {
 
     // paramsにその他の変更があった場合
     if (!is(nextParams, params)) {
+      this.setState({selectedIndex: 0})
       const _params = nextParams.toJS();
       this.props.getSearchResult({params: _params});
     }
 
     if (nextSelectedCategory !== selectedCategory) {
+      this.props.changeValueOfParams({key: 'food', value: null})
       this.props.getFood({food_category: nextSelectedCategory})
     }
   }
@@ -77,7 +79,7 @@ class ShopListPage extends React.Component {
     return (
         <Toolbar>
           <div className='center' style={{fontWeight: 'bold'}}>
-            {searchResult.shop[0].small_area.name}付近のお店
+            {searchResult.shop.length > 0 ? `${searchResult.shop[0].small_area.name}付近のお店` : '見つかりませんでした'}
           </div>
           <div className='right'>
             <ToolbarButton
@@ -115,8 +117,6 @@ class ShopListPage extends React.Component {
         selectedCategory,
         food,
       } = index;
-
-    console.log(searchResult);
 
     return (
         <Page>
@@ -284,6 +284,7 @@ class ShopListPage extends React.Component {
                     ))}
                 </div>
                 <div className="c-shop-list-page__bottom">
+                  {searchResult.shop.length > 0 &&
                     <Button
                       className="c-shop-list-page__bottom__button"
                       modifier="large"
@@ -291,6 +292,7 @@ class ShopListPage extends React.Component {
                     >
                       ここに向かう
                     </Button>
+                  }
                 </div>
               </div>
             </div>
