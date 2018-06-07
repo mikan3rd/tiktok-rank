@@ -245,6 +245,7 @@
 .c-browser__iframe__wrapper {
   display: inline-block;
   height: 100%;
-  width: 100%;
+  width: 150%;
+  max-width: 100%;
   overflow: auto;
 }
