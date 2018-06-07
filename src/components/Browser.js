@@ -25,7 +25,7 @@ class Browser extends React.Component {
         <div style={{height: '100%', width: '100%'}}>
         <iframe
           src={naviShop.urls.pc}
-          style={{height: '100%', width: '100%'}}
+          style={{height: '100%',width: '150%', maxWidth: '100%'}}
         />
         </div>
       </Page>
