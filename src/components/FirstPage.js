@@ -29,6 +29,7 @@ class FirstPage extends React.Component {
       navigator.geolocation.getCurrentPosition(
         this.successGetCurrentPosition,
         this.failedGetCurrentPosition,
+        {enableHighAccuracy: true},
       );
 
     }

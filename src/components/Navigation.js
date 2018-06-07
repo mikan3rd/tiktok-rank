@@ -93,7 +93,11 @@ class Navigation extends React.Component {
     }
 
     componentWillMount = () => {
-      const watchId = navigator.geolocation.watchPosition(this.successWatchPosition);
+      const watchId = navigator.geolocation.watchPosition(
+        this.successWatchPosition,
+        this.failedWatchPosition,
+        {enableHighAccuracy: true}
+      );
       this.setState({watchId})
     }
 
