@@ -22,11 +22,11 @@ class Browser extends React.Component {
 
     return (
       <Page renderToolbar={this.renderToolbar}>
-        <div style={{height: '100%', width: '100%'}}>
-        <iframe
-          src={naviShop.urls.pc}
-          style={{height: '100%',width: '150%', maxWidth: '100%'}}
-        />
+        <div className="c-browser__iframe__wrapper">
+          <iframe
+            className="c-browser__iframe"
+            src={naviShop.urls.pc}
+          />
         </div>
       </Page>
     );
