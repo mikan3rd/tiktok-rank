@@ -4,31 +4,26 @@ import {Record, Map} from 'immutable';
 import Actions from './actions';
 
 
-let params = Map({
-  latitude: null,
-  longitude: null,
-  lunch: 1,
-  range: "3",
-  food: "",
-  wifi: 0,
+let storage = Map({
+  clickCount: 0,
+  count: 0,
+  totalCount: 0,
+  time: null,
+  storeList: [],
 });
-// const searchParamsJson = localStorage.getItem('searchParams');
-// if (searchParamsJson) {
-//   params = Map(JSON.parse(searchParamsJson));
-// }
+
+const mcStorageJson = localStorage.getItem('mcStorage');
+if (mcStorageJson) {
+  storage = Map(JSON.parse(mcStorageJson));
+}
 
 
 const IndexRecord = Record({
-  params,
-  searchResult: null,
+  storage,
   isLoading: false,
   isProgress: false,
   message: '',
   isSideOpen: false,
-  naviShop: null,
-  foodCategory: [],
-  selectedCategory: "",
-  food: [],
   isOpenModal: false,
   isToast: false,
 });
@@ -49,8 +44,8 @@ export default handleActions({
 
     return state.set(key, value);
   },
-  [Actions.changeValueOfParams]: (state, action) => {
+  [Actions.chnageValueOfStorage]: (state, action) => {
     const {key, value} = action.payload;
-    return state.setIn(['params', key], value);
+    return state.setIn(['storage', key], value);
   },
 }, new Index());

@@ -6,7 +6,7 @@ import {
 } from 'react-onsenui';
 
 import {IndexActions} from '../modules/Index';
-import FirstPage from '../components/FirstPage';
+import Count from '../components/Count';
 
 import '../../stylesheets/03_page/index.css';
 
@@ -36,7 +36,7 @@ class Index extends React.Component {
     return (
       <Navigator
         renderPage={this.renderPage}
-        initialRoute={{component: FirstPage, key: 'FirstPage'}}
+        initialRoute={{component: Count, key: 'Count'}}
       />
     );
   }

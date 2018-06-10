@@ -1,6 +1,6 @@
 {
-  "name": "lunch-search",
-  "homepage": "https://mikan3rd.github.io/lunch-search",
+  "name": "mikan-clicker",
+  "homepage": "https://mikan3rd.github.io/mikan-clicker",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
@@ -38,6 +38,7 @@
     "es6-promise": "^4.1.0",
     "gh-pages": "^1.1.0",
     "immutable": "^3.8.1",
+    "jquery": "^3.3.1",
     "md5": "^2.2.1",
     "node-sass": "^4.5.3",
     "onsenui": "^2.9.2",

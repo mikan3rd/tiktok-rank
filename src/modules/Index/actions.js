@@ -4,7 +4,7 @@ const getSearchResult = createAction('Index/getSearchResult');
 const getFoodCategory = createAction('Index/getFoodCategory');
 const getFood = createAction('Index/getFood');
 const changeValueForKey = createAction('Index/changeValueForKey');
-const changeValueOfParams = createAction('Index/changeValueOfParams');
+const chnageValueOfStorage = createAction('Index/chnageValueOfStorage');
 const sendStripeToken = createAction('Index/sendStripeToken');
 
 export default {
@@ -12,6 +12,6 @@ export default {
   getFoodCategory,
   getFood,
   changeValueForKey,
-  changeValueOfParams,
+  chnageValueOfStorage,
   sendStripeToken,
 };

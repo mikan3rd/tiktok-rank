@@ -3,7 +3,6 @@ import {put, takeLatest, call} from 'redux-saga/effects';
 
 import Actions from './actions';
 import {ChargeApi, HotpepperApi} from '../../helpers/api';
-import ShopListPage from '../../components/ShopListPage';
 
 export default function* (): Generator<*, *, *> {
   yield takeLatest(Actions.getSearchResult, getSearchResult);
@@ -25,12 +24,7 @@ function* getSearchResult(action) : Generator<*, *, *> {
 
   if (response.status === 200) {
     yield put(Actions.changeValueForKey({key: 'searchResult', value: response.data.results}));
-
-    if (navigator) {
-      navigator.pushPage({component: ShopListPage, key: 'ShopListPage'});
-    } else {
-      yield put(Actions.changeValueForKey({key: 'isProgress', value: false}));
-    }
+    yield put(Actions.changeValueForKey({key: 'isProgress', value: false}));
 
   }
   yield put(Actions.changeValueForKey({key: 'isLoading', value: false}));
