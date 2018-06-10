@@ -1,20 +1,24 @@
 import React from 'react';
 import {is} from 'immutable';
+import uaparse from 'ua-parser-js';
 import {
   Page,
-  Modal,
+  // Modal,
   Carousel,
   CarouselItem,
   Button,
   Icon,
   Toolbar,
-  ToolbarButton,
+  // ToolbarButton,
   Splitter,
   SplitterContent,
   SplitterSide,
   ListHeader,
   Switch,
   Select,
+  Fab,
+  ProgressCircular,
+  Toast,
 } from 'react-onsenui';
 
 import Navigation from './Navigation';
@@ -34,7 +38,7 @@ const rangeList = [
 class ShopListPage extends React.Component {
 
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       selectedIndex: 0,
       isSideOpen: false,
@@ -58,8 +62,27 @@ class ShopListPage extends React.Component {
     }
 
     if (nextSelectedCategory !== selectedCategory) {
-      this.props.changeValueOfParams({key: 'food', value: null})
+      this.props.changeValueOfParams({key: 'food', value: ""})
       this.props.getFood({food_category: nextSelectedCategory})
+    }
+  }
+
+  componentDidMount = () => {
+    const ua = uaparse(window.navigator.userAgent);
+    let isSafari = ua.browser.name === 'Mobile Safari';
+
+    if (isSafari) {
+      if (!window.navigator.standalone) {
+        const lh_close = localStorage.getItem('lh_close') || 0
+        if (Number(lh_close) < 2) {
+          localStorage.setItem('lh_close', String(Number(lh_close) + 1))
+
+          setTimeout(() => {
+            this.props.changeValueForKey({key: 'isToast', value: true})
+          }, 3000)
+
+        }
+      }
     }
   }
 
@@ -75,6 +98,53 @@ class ShopListPage extends React.Component {
     this.props.navigator.pushPage({component: Browser, key: 'Browser'});
   }
 
+  getCurrentPosition = () => {
+    if (!navigator.geolocation) {
+      this.setState({
+          isAlertOpen: true,
+          alertMessage: 'この端末では\n現在地を取得できません'
+      })
+      return;
+    }
+
+    this.props.changeValueForKey({key: 'isProgress', value: true});
+
+    navigator.geolocation.getCurrentPosition(
+      this.successGetCurrentPosition,
+      this.failedGetCurrentPosition,
+      {enableHighAccuracy: true},
+    );
+
+  }
+
+  successGetCurrentPosition = (position) => {
+    const {
+      latitude,
+      longitude,
+    } = position.coords;
+
+    let params = this.props.index.params;
+    params = params.set('latitude', latitude);
+    params = params.set('longitude', longitude)
+
+    this.props.changeValueForKey({key: 'params', value: params})
+    this.props.getSearchResult({params: params.toJS()});
+  }
+
+  failedGetCurrentPosition = (error) => {
+    this.props.changeValueForKey({key: 'isLoading', value: false});
+  var errorMessage = {
+  0: "原因不明のエラーが\n発生しました" ,
+      1: "位置情報の取得が\n許可されませんでした\n\n位置情報の取得を\n許可してください" ,
+  2: "電波状況などで\n位置情報が取得できませんでした" ,
+  3: "位置情報の取得に\n時間がかかり過ぎて\n失敗しました" ,
+  };
+    this.setState({
+      isAlertOpen: true,
+      alertMessage: errorMessage[error.code]
+    })
+  }
+
   renderToolbar = () => {
     const searchResult = this.props.index.searchResult;
     return (
@@ -82,21 +152,42 @@ class ShopListPage extends React.Component {
           <div className='center' style={{fontWeight: 'bold'}}>
             {searchResult.shop.length > 0 ? `${searchResult.shop[0].small_area.name}付近のお店` : '見つかりませんでした'}
           </div>
-          <div className='right'>
-            <ToolbarButton
-              style={{color: 'black'}}
-              onClick={() => this.setState({isSideOpen: !this.state.isSideOpen})}
-            >
-              <Icon
-                icon="md-settings"
-                size={30}
-              />
-            </ToolbarButton>
-          </div>
+
+            <div className="right" style={{padding: '5px'}}>
+            {this.props.index.isProgress &&
+              <ProgressCircular indeterminate/>
+            }
+            </div>
+          }
       </Toolbar>
     );
   }
 
+  renderFixed = () => {
+    return (
+      <div>
+        <Fab
+          position="bottom right"
+          ripple={true}
+          onClick={this.setNavigationPosition}
+        >
+        <Icon
+          icon="md-google-maps"
+        />
+
+      </Fab>
+      <Fab
+          position="bottom left"
+          ripple={true}
+          onClick={() => this.setState({isSideOpen: !this.state.isSideOpen})}
+        >
+        <Icon
+          icon="md-settings"
+        />
+      </Fab>
+    </div>
+    );
+  }
   render () {
     const {
       selectedIndex,
@@ -119,6 +210,7 @@ class ShopListPage extends React.Component {
         selectedCategory,
         food,
         isOpenModal,
+        isToast,
       } = index;
 
     return (
@@ -128,7 +220,7 @@ class ShopListPage extends React.Component {
               style={{
                 boxShadow: '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
               }}
-              side="right"
+              side="left"
               width={200}
               collapse={true}
               swipeable={true}
@@ -166,12 +258,13 @@ class ShopListPage extends React.Component {
                     })}
                   </Select>
                 </div>
-                <ListHeader>カテゴリ</ListHeader>
+                <ListHeader>カテゴリ（料理名を絞り込み）</ListHeader>
                 <div className="p-index__side__select">
                   <Select
                     value={selectedCategory}
                     onChange={(e) => changeValueForKey({key: 'selectedCategory', value: e.target.value})}
                   >
+                    <option value="">なし</option>
                     {foodCategory.map((category, index) => {
                       return (
                         <option key={index} value={category.code}>{category.name}</option>
@@ -182,15 +275,26 @@ class ShopListPage extends React.Component {
                 <ListHeader>料理名</ListHeader>
                 <div className="p-index__side__select">
                   <Select
-                    value={params.get('food') || null}
+                    value={params.get('food')}
                     onChange={(e) => changeValueOfParams({key: 'food', value: e.target.value})}
                   >
+                    <option value="">なし</option>
                     {food.map((category, index) => {
                       return (
                         <option key={index} value={category.code}>{category.name}</option>
                       );
                     })}
                   </Select>
+                </div>
+                <ListHeader>再検索</ListHeader>
+                <div className="p-index__side__contact__button">
+                  <Button
+                    className="p-index__side__contact__button__child"
+                    onClick={() => this.getCurrentPosition()}
+                    style={{textAlign: 'center'}}
+                  >
+                    <p className="p-index__side__contact__button__inner">現在地を更新する</p>
+                  </Button>
                 </div>
                 <ListHeader>作者について</ListHeader>
                 <div className="p-index__side__contact__button">
@@ -221,11 +325,45 @@ class ShopListPage extends React.Component {
                 </div>
               </div>
             </Modal> */}
+              <Toast
+                isOpen={isToast}
+              >
+              <div
+                className="message"
+                style={{
+                  whiteSpace:'pre-wrap',
+                  padding: '10px',
+                  lineHeight: '2',
+                }}
+              >
+                画面下の共有ボタン <Icon icon="ion-share" size={30} /> を押して{'\n'}
+                ホーム画面に追加 <Icon icon="fa-plus-square" size={30} /> すると{'\n'}
+                アプリをインストールできます
+              </div>
+              <Icon
+                icon="md-close"
+                size={30}
+                style={{color: 'white'}}
+                onClick={() => changeValueForKey({key: 'isToast', value: false})}
+              />
+            </Toast>
             <Page
               renderToolbar={this.renderToolbar}
+              renderFixed={this.renderFixed}
             >
             <div className="p-index">
               <div className="c-shop-list-page">
+                <div style={{textAlign: 'center',fontSize: '20px', paddingTop: '20px'}}>
+                    {searchResult.shop.map((result, index) => (
+                        <span
+                          key={index}
+                          style={{cursor: 'pointer'}}
+                          onClick={() => this.setState({selectedIndex: index})}
+                        >
+                        {selectedIndex === index ? '\u25CF' : '\u25CB'}
+                        </span>
+                    ))}
+                </div>
                 <Carousel
                     onPostChange={(e) => this.setState({selectedIndex: e.activeIndex})}
                     index={selectedIndex}
@@ -261,12 +399,13 @@ class ShopListPage extends React.Component {
                             <div className="c-shop-list-page__card__content__ganre-catch">
                               {result.genre.catch}
                             </div>
-                            <div style={{textAlign: 'right'}}>
+                            <div style={{textAlign: 'center'}}>
                               <Button
                                 onClick={() => this.setBrowserShop()}
-                                modifier="outline"
+                                modifier="quiet"
+                                style={{fontSize: '12px', marginBottom: '-10px', color: 'gray'}}
                               >
-                                詳細
+                                ホットペッパーグルメで見る
                               </Button>
                             </div>
                             <div className="c-shop-list-page__card__content__food-name">
@@ -280,18 +419,7 @@ class ShopListPage extends React.Component {
                     );
                 })}
                 </Carousel>
-                <div style={{textAlign: 'center',fontSize: '20px'}}>
-                    {searchResult.shop.map((result, index) => (
-                        <span
-                          key={index}
-                          style={{cursor: 'pointer'}}
-                          onClick={() => this.setState({selectedIndex: index})}
-                        >
-                        {selectedIndex === index ? '\u25CF' : '\u25CB'}
-                        </span>
-                    ))}
-                </div>
-                <div className="c-shop-list-page__bottom">
+                {/* <div className="c-shop-list-page__bottom">
                   {searchResult.shop.length > 0 &&
                     <Button
                       className="c-shop-list-page__bottom__button"
@@ -301,7 +429,7 @@ class ShopListPage extends React.Component {
                       ここに向かう
                     </Button>
                   }
-                </div>
+                </div> */}
               </div>
             </div>
             </Page>

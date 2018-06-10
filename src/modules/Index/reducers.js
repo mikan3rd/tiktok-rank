@@ -9,7 +9,7 @@ let params = Map({
   longitude: null,
   lunch: 1,
   range: "3",
-  food: null,
+  food: "",
   wifi: 0,
 });
 // const searchParamsJson = localStorage.getItem('searchParams');
@@ -22,14 +22,15 @@ const IndexRecord = Record({
   params,
   searchResult: null,
   isLoading: false,
+  isProgress: false,
   message: '',
   isSideOpen: false,
-  isOpenModal: null,
   naviShop: null,
   foodCategory: [],
-  selectedCategory: null,
+  selectedCategory: "",
   food: [],
   isOpenModal: false,
+  isToast: false,
 });
 
 class Index extends IndexRecord {
@@ -39,7 +40,7 @@ class Index extends IndexRecord {
 export default handleActions({
   [Actions.changeValueForKey]: (state, action) => {
     const {key, value} = action.payload;
-    if (key == 'message') {
+    if (key === 'message') {
       return state.merge({
         [key]: value,
         'isLoading': true,

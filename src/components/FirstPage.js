@@ -13,6 +13,7 @@ class FirstPage extends React.Component {
 
     componentDidMount = () => {
       this.props.getFoodCategory();
+      this.props.getFood({food_category: null})
     }
 
     getCurrentPosition = () => {
@@ -65,7 +66,7 @@ class FirstPage extends React.Component {
   render () {
     const {
       isAlertOpen,
-      alertMessage
+      alertMessage,
     } = this.state;
 
     const {
@@ -107,11 +108,6 @@ class FirstPage extends React.Component {
             <div className="c-first-page__logo">
               <img src="./images/logo.jpg" role="presentation" />
             </div>
-            <div className="c-first-page__description">
-              Ottimo!!（オッティモ!!）は<br />
-              近くの飲食店を<br />
-              簡単に検索できるサービスです。
-            </div>
             <div
               className="c-first-page__search"
               onClick={() => this.getCurrentPosition()}
@@ -123,6 +119,11 @@ class FirstPage extends React.Component {
               <div>
                 現在地から検索する
               </div>
+            </div>
+            <div className="c-first-page__description">
+              Ottimo!!（オッティモ!!）は<br />
+              近くの飲食店を<br />
+              簡単に検索できるサービスです。
             </div>
           </div>
         </div>

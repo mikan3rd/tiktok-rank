@@ -13,10 +13,14 @@ export default function* (): Generator<*, *, *> {
 }
 
 function* getSearchResult(action) : Generator<*, *, *> {
+  const {params, navigator} = action.payload;
+
   if (navigator) {
     yield put(Actions.changeValueForKey({key: 'message', value: 'お店を検索中...'}));
+  } else {
+    yield put(Actions.changeValueForKey({key: 'isProgress', value: true}));
   }
-  const {params, navigator} = action.payload;
+
   const response = yield call(HotpepperApi.get, params);
 
   if (response.status === 200) {
@@ -24,6 +28,8 @@ function* getSearchResult(action) : Generator<*, *, *> {
 
     if (navigator) {
       navigator.pushPage({component: ShopListPage, key: 'ShopListPage'});
+    } else {
+      yield put(Actions.changeValueForKey({key: 'isProgress', value: false}));
     }
 
   }
@@ -49,8 +55,6 @@ function* getFood(action) : Generator<*, *, *> {
 function* sendStripeToken(action) : Generator<*, *, *> {
   yield put(Actions.changeValueForKey({key: 'isLoading', value: true}));
   const token = action.payload;
-  console.log("token:", token);
   const response = yield call(ChargeApi.post, token);
-  console.log("response:", response);
   yield put(Actions.changeValueForKey({key: 'isLoading', value: false}));
 }

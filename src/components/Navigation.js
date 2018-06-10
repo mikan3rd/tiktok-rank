@@ -40,9 +40,9 @@ const MyMapComponent = compose(
       }
     })
   )(props => {
-      const pastPosition = new google.maps.LatLng(props.pastPosition.lat, props.pastPosition.lng);
-      const position = new google.maps.LatLng(props.position.lat, props.position.lng);
-      const heading = google.maps.geometry.spherical.computeHeading(pastPosition, position);
+      // const pastPosition = new google.maps.LatLng(props.pastPosition.lat, props.pastPosition.lng);
+      // const position = new google.maps.LatLng(props.position.lat, props.position.lng);
+      // const heading = google.maps.geometry.spherical.computeHeading(pastPosition, position);
       return (
         <GoogleMap
           zoom={15}
@@ -63,7 +63,7 @@ const MyMapComponent = compose(
               fillOpacity: 1,
               scale: 6,
               strokeWeight: 3,
-              rotation: heading,
+              rotation: props.alpha,
             }}
           />
         <DirectionsRenderer
@@ -88,7 +88,8 @@ class Navigation extends React.Component {
         position: {
           lat: params.get('latitude'),
           lng: params.get('longitude'),
-        }
+        },
+        alpha: 0,
       }
     }
 
@@ -130,16 +131,36 @@ class Navigation extends React.Component {
       );
     }
 
+    deviceOrientationHandler = (event) => {
+      // console.log(event);
+      var alpha = 0;
+      //Check for iOS property
+      if (event.webkitCompassHeading) {
+          alpha = event.webkitCompassHeading;
+      }
+      //non iOS
+      else {
+          alpha = event.alpha;
+      }
+
+      this.setState({alpha});
+    }
+
   render () {
     const{
       position,
       pastPosition,
+      alpha,
     } = this.state;
 
     const {index} = this.props;
     const {
       naviShop
     } = index;
+
+    if (window.DeviceOrientationEvent) {
+      window.addEventListener('deviceorientation', this.deviceOrientationHandler, false);
+    }
 
     return (
       <Page
@@ -150,6 +171,7 @@ class Navigation extends React.Component {
           position={position}
           pastPosition={pastPosition}
           naviShop={naviShop}
+          alpha={alpha}
         />
       </Page>
     );

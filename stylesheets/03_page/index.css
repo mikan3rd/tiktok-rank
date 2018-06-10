@@ -9,13 +9,25 @@
   /* background-color: #96523d !important; */
 }
 
+.c-first-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+}
+
+.c-first-page__logo {
+  margin-top: -30px;
+  width: 90%;
+}
+
 .c-first-page__logo img {
   width: 100%;
 }
 
 .c-first-page__description {
   color: #f2e6b1;
-  margin-bottom: 40px;
   text-align: center;
   line-height: 1.5;
 }
@@ -27,7 +39,6 @@
   color: #f2e6b1;
   border: solid 2px #f2e6b1;
   border-radius: 5px;
-  margin: auto;
   padding: 10px;
   width: 200px;
   font-weight: bold;
@@ -233,14 +244,4 @@
   width: 100%;
   height: 80px;
   font-weight: bold;
-}
-
-.c-browser__iframe {
-  width: 100%;
-  height: 100%;
-}
-
-.c-browser__iframe__wrapper {
-  height: 100%;
-  width: 100%;
 }

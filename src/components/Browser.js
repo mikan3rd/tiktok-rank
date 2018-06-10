@@ -1,16 +1,21 @@
 import React from 'react';
-import {Page, Toolbar,BackButton} from 'react-onsenui';
+import ons from 'onsenui';
+import {Page, Toolbar,BackButton, } from 'react-onsenui';
 
 
 class Browser extends React.Component {
 
-    componentDidMount = () => {
-        const innerWidth = window.innerWidth;
-        console.log("innerWidth:", innerWidth);
-        let element = document.getElementById("browser-iframe");
-        element.style.width = `${innerWidth}px`;
-        console.log("success!!");
+  constructor(props) {
+    super(props);
+
+    const isIOS = ons.platform.isIOS();
+
+    this.state = {
+      width: window.innerWidth,
+      height: isIOS ? '' : '100%',
+      scrolling: isIOS ? 'no' : 'yes',
     }
+  }
 
     renderToolbar = () => {
         return (
@@ -28,6 +33,12 @@ class Browser extends React.Component {
       naviShop,
     } = index;
 
+    const {
+      width,
+      height,
+      scrolling,
+    } = this.state;
+
     return (
       <Page renderToolbar={this.renderToolbar}>
         <div className="c-browser__iframe__wrapper">
@@ -35,6 +46,9 @@ class Browser extends React.Component {
             id="browser-iframe"
             className="c-browser__iframe"
             src={naviShop.urls.pc}
+            width={width}
+            height={height}
+            scrolling={scrolling}
           />
         </div>
       </Page>
