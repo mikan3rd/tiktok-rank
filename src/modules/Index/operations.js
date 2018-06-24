@@ -6,8 +6,6 @@ import {ChargeApi, HotpepperApi} from '../../helpers/api';
 
 export default function* (): Generator<*, *, *> {
   yield takeLatest(Actions.getSearchResult, getSearchResult);
-  yield takeLatest(Actions.getFoodCategory, getFoodCategory);
-  yield takeLatest(Actions.getFood, getFood);
   yield takeLatest(Actions.sendStripeToken, sendStripeToken);
 }
 
@@ -28,21 +26,6 @@ function* getSearchResult(action) : Generator<*, *, *> {
 
   }
   yield put(Actions.changeValueForKey({key: 'isLoading', value: false}));
-}
-
-function* getFoodCategory(action) {
-  const response = yield call(HotpepperApi.getFoodCategory);
-  if (response.status === 200) {
-    yield put(Actions.changeValueForKey({key: 'foodCategory', value: response.data.results.food_category}));
-  }
-}
-
-function* getFood(action) : Generator<*, *, *> {
-  const params = action.payload;
-  const response = yield call(HotpepperApi.getFood, params);
-  if (response.status === 200) {
-    yield put(Actions.changeValueForKey({key: 'food', value: response.data.results.food}));
-  }
 }
 
 

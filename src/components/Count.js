@@ -28,10 +28,45 @@ import {
 import MyStoreCheckout from '../components/Stripe/MyStoreCheckout';
 import CountHome from '../components/CountHome';
 import CountStore from '../components/CountStore';
+import Ranking from '../components/Ranking';
 
-const BaseStoreList = [
-  {label: '温州みかん', product: 1},
-  {label: 'はれひめ', product: 10},
+const BaseStoreList = [{
+    label: '温州みかん',
+    cost: 15,
+    product: 0.1,
+    description: '味と食べやすさを兼ね備えた、かんきつ王国愛媛の顔。夏場の温室みかんは贈答品に最適。',
+    image: 'http://kochi-marugoto.com/wp/wp-content/uploads/2017/03/mikan01.jpg',
+  },{
+    label: 'オレンジ',
+    cost: 110,
+    product: 1,
+    description: 'ミカン目ミカン科ミカン属オレンジ種。よくジュースにされている。',
+    image: 'https://shiru2.jp/toushitsu/wp-content/uploads/2016/12/1111-13.jpg',
+  },{
+    label: '清見',
+    cost: 1100,
+    product: 8,
+    description: 'みかんにオレンジを交配。豊富な果汁とまろやかな果肉が特徴。カットフルーツに最適。',
+    image: 'https://blog-001.west.edge.storage-yahoo.jp/res/blog-73-eb/nagomi_yst/folder/225426/53/24179653/img_1?1363525304',
+  },{
+    label: 'オセオラ',
+    cost: 12000,
+    product: 47,
+    description: 'フロリダ大学のガードナー博士、ベロース博士らによって育成された交雑のタンゼリンタンゼロで、クレメンティンにオーランドを交配して育成された品種である。',
+    image: 'http://fukujyuen.net/lib/upload/save_image/oseora_main01b.jpg',
+  },{
+    label: 'はれひめ',
+    cost: 130000,
+    product: 260,
+    description: '清見とオセオラとみかんを交配。手で皮がむけ、内袋ごと食べられる爽やかなオレンジ風味が特徴。',
+    image: 'http://noumin.jp/image/kankitsu/harehime.JPG',
+  },{
+    label: 'ポンカン',
+    cost: 1400000,
+    product: 1400,
+    description: 'インド原産で日本に伝来。手で皮がむけ、内袋ごと食べられ、甘味の強さと香りが特徴',
+    image: 'https://kotobank.jp/image/dictionary/nipponica/media/81306024002433.jpg',
+  },
 ];
 
 
@@ -42,6 +77,9 @@ class ShopListPage extends React.Component {
     this.state = {
       tabIndex: 0,
       isSideOpen: false,
+      intervalId: null,
+      start: 0,
+      sum: 0,
     }
   }
 
@@ -74,6 +112,26 @@ class ShopListPage extends React.Component {
       }
     }
 
+    const intervalId = setInterval(this.autoIncrease, 1000);
+    this.setState({intervalId: intervalId});
+
+  }
+
+  componentWillUnmount = () => {
+    clearInterval(this.state.intervalId);
+  }
+
+  autoIncrease = () => {
+    const {storage} = this.props.index;
+    let count = Number(storage.get('count').toFixed(1));
+    let sum = 0;
+    for (const [i, num] of storage.get('storeList').entries()) {
+      const BaseStore = BaseStoreList[i];
+      sum += Number(Number(BaseStore['product'] * num).toFixed(1));
+    }
+    const value = count + sum;
+    this.props.changeValueOfStorage({key: 'count', value: Number(value.toFixed(1))});
+    this.setState({sum, start: storage.get('count')})
   }
 
   renderFixed = () => {
@@ -97,6 +155,7 @@ class ShopListPage extends React.Component {
       content: <CountHome
         key="CountHome"
         BaseStoreList={BaseStoreList}
+        {...this.state}
         {...this.props}
       />,
       tab: <Tab key="CountHome" label='Home' icon='md-home' />
@@ -104,9 +163,17 @@ class ShopListPage extends React.Component {
       content: <CountStore
         key="CountStore"
         BaseStoreList={BaseStoreList}
+        {...this.state}
         {...this.props}
       />,
       tab: <Tab key="CountStore" label='Store' icon='md-store' />
+    }, {
+        content: <Ranking
+        key="Ranking"
+        BaseStoreList={BaseStoreList}
+        {...this.props}
+      />,
+      tab: <Tab key="Ranking" label='Ranking' icon='fa-list-ol' />
     }];
   }
 
@@ -118,7 +185,7 @@ class ShopListPage extends React.Component {
 
     const {
         index,
-        chnageValueOfStorage,
+        changeValueOfStorage,
         changeValueForKey,
         sendStripeToken,
       } = this.props;
@@ -140,7 +207,7 @@ class ShopListPage extends React.Component {
               width={200}
               collapse={true}
               swipeable={true}
-              swipeTargetWidth="35%"
+              swipeTargetWidth="40%"
               isOpen={isSideOpen}
               onClose={() => this.setState({isSideOpen: false})}
               onOpen={() => this.setState({isSideOpen: true})}
@@ -177,7 +244,7 @@ class ShopListPage extends React.Component {
               >
                 画面下の共有ボタン <Icon icon="ion-share" size={30} /> を押して{'\n'}
                 ホーム画面に追加 <Icon icon="fa-plus-square" size={30} /> すると{'\n'}
-                アプリをインストールできます
+                アプリをインストールできます（Safariの場合のみ）
               </div>
               <Icon
                 icon="md-close"

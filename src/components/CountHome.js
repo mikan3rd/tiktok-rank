@@ -1,5 +1,6 @@
 import React from 'react';
 import {Page ,Button} from 'react-onsenui';
+import CountUp from 'react-countup';
 
 class CountHome extends React.Component {
 
@@ -14,31 +15,25 @@ class CountHome extends React.Component {
     target_mikan.classList.add("animation-target");
 
     const {storage} = this.props.index;
-    const clickCount = storage.get('clickCount');
-    this.props.chnageValueOfStorage({key: 'clickCount', value: clickCount + 1})
+    const clickCount = Number(storage.get('clickCount'));
+    this.props.changeValueOfStorage({key: 'clickCount', value: clickCount + 1})
 
-    const count = storage.get('count');
+    const count = Number(storage.get('count'));
     const storeList = storage.get('storeList')
     const firstStore = storeList[0] || 0;
-    this.props.chnageValueOfStorage({key: 'count', value: firstStore + count + 1})
+    this.props.changeValueOfStorage({key: 'count', value: Math.round(firstStore * 0.1 + count + 1)})
   }
-
-  onSave = () => {
-    const {storage} = this.props.index;
-    localStorage.setItem('mcStorage', JSON.stringify(storage.toJS()));
-  }
-
 
   render() {
     const {
       index,
+      start,
+      sum,
     } = this.props;
 
     const {
       storage,
     } = index;
-
-    // console.log(this.props.index);
 
     return (
       <Page>
@@ -55,21 +50,21 @@ class CountHome extends React.Component {
             />
           </div>
           <div className="c-count-home__count">
-            {storage.get('count')} mikans
+            <CountUp
+              start={start}
+              end={storage.get('count')}
+              duration={1}
+              useEasing={false}
+              useGrouping={true}
+              separator=","
+            /> mikans
+          </div>
+          <div className="c-count-home__sum">
+             + {sum}
           </div>
           <div className="c-count-home__click-count">
             {storage.get('clickCount')} clicks
           </div>
-
-          {/* <div className="c-count-home__save">
-            <Button
-              className="c-count-home__save__button"
-              modifier="large"
-              onClick={() => this.onSave()}
-            >
-              <p className="c-count-home__save__button__text">Save</p>
-            </Button>
-          </div> */}
 
         </div>
 
