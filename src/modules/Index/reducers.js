@@ -5,11 +5,11 @@ import Actions from './actions';
 
 
 const IndexRecord = Record({
-  isLoading: false,
-  userResult: Map({
+  isLoading: true,
+  userResult: {
     userList: [],
     paging: {},
-  }),
+  },
 });
 
 class Index extends IndexRecord {

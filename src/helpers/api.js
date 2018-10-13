@@ -2,10 +2,10 @@ import ApiClient from './ApiClient';
 
 const client = new ApiClient();
 
-class GnaviApi {
+class TikTokApi {
 
-  static async get(params) {
-    const endpoint = '/gnavi';
+  static async getUserList(params) {
+    const endpoint = '/tiktok/users';
 
     try {
       return await client.request('GET', endpoint, params);
@@ -16,42 +16,6 @@ class GnaviApi {
   }
 }
 
-class HotpepperApi {
-
-    static async get(params) {
-      const endpoint = '/hotpepper';
-
-      try {
-        return await client.request('GET', endpoint, params);
-      } catch (e) {
-        console.log('エラー:', e);
-        return {data: []};
-      }
-    }
-
-    static async getFoodCategory() {
-      const endpoint = '/hotpepper/food_category';
-
-      try {
-        return await client.request('GET', endpoint);
-      } catch (e) {
-        console.log('エラー:', e);
-        return {data: []};
-      }
-    }
-
-    static async getFood(params) {
-      const endpoint = '/hotpepper/food';
-
-      try {
-        return await client.request('GET', endpoint, params);
-      } catch (e) {
-        console.log('エラー:', e);
-        return {data: []};
-      }
-    }
-
-  }
 
 class ChargeApi {
 
@@ -69,7 +33,6 @@ class ChargeApi {
 
 
 export {
-  GnaviApi,
-  HotpepperApi,
+  TikTokApi,
   ChargeApi,
 };
