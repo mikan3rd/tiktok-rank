@@ -5,26 +5,18 @@ import Actions from './actions';
 import {ChargeApi, HotpepperApi} from '../../helpers/api';
 
 export default function* (): Generator<*, *, *> {
-  yield takeLatest(Actions.getSearchResult, getSearchResult);
+  yield takeLatest(Actions.getUserResult, getUserResult);
   yield takeLatest(Actions.sendStripeToken, sendStripeToken);
 }
 
-function* getSearchResult(action) : Generator<*, *, *> {
-  const {params, navigator} = action.payload;
+function* getUserResult(action) : Generator<*, *, *> {
+  const {page} = action.payload;
+  // const response = yield call(HotpepperApi.get, params);
 
-  if (navigator) {
-    yield put(Actions.changeValueForKey({key: 'message', value: 'お店を検索中...'}));
-  } else {
-    yield put(Actions.changeValueForKey({key: 'isProgress', value: true}));
-  }
+  // if (response.status === 200) {
+  //   yield put(Actions.changeValueForKey({key: 'userResult', value: response.data}));
 
-  const response = yield call(HotpepperApi.get, params);
-
-  if (response.status === 200) {
-    yield put(Actions.changeValueForKey({key: 'searchResult', value: response.data.results}));
-    yield put(Actions.changeValueForKey({key: 'isProgress', value: false}));
-
-  }
+  // }
   yield put(Actions.changeValueForKey({key: 'isLoading', value: false}));
 }
 

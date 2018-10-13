@@ -1,15 +1,11 @@
 import {createAction} from 'redux-actions';
 
-const getSearchResult = createAction('Index/getSearchResult');
+const getUserResult = createAction('Index/getUserResult');
 const changeValueForKey = createAction('Index/changeValueForKey');
-const changeValueOfStorage = createAction('Index/changeValueOfStorage');
-const buyStore = createAction('Index/buyStore');
 const sendStripeToken = createAction('Index/sendStripeToken');
 
 export default {
-  getSearchResult,
+  getUserResult,
   changeValueForKey,
-  changeValueOfStorage,
-  buyStore,
   sendStripeToken,
 };
