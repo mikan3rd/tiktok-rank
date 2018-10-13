@@ -1,0 +1,30 @@
+{
+  "short_name": "TikTokランキング",
+  "name": "TikTokランキング",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#001a3c",
+  "background_color": "#001a3c",
+  "icons": [
+    {
+      "src": "./images/logo.jpg",
+      "type": "image/jpg",
+      "sizes": "48x48"
+    },
+    {
+      "src": "./images/logo.jpg",
+      "type": "image/jpg",
+      "sizes": "96x96"
+    },
+    {
+      "src": "./images/logo.jpg",
+      "type": "image/jpg",
+      "sizes": "192x192"
+    },
+    {
+      "src": "./images/logo.jpg",
+      "type": "image/jpg",
+      "sizes": "512x512"
+    }
+  ]
+}
