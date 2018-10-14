@@ -16,6 +16,10 @@ a {
   color: #fff;
 }
 
+p {
+  color: #fff;
+}
+
 h2 {
   font-size: 22px;
 }
@@ -52,11 +56,6 @@ button {
 
 .modal__body {
   margin-top: -100px;
-}
-
-.loading-modal {
-  margin-right: 50%;
-  margin-top: -25%;
 }
 
 .modal__message {

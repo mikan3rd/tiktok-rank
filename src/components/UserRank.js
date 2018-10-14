@@ -1,5 +1,7 @@
 import React from 'react';
 
+import LazyImg from './Shared/LazyImg'
+
 class UserRank extends React.Component {
 
   componentWillMount() {
@@ -28,7 +30,7 @@ class UserRank extends React.Component {
               >
                 <div className="c-user-rank__user">
                   <div className="c-user-rank__user__left">
-                    <img src={user.avatar_thumb} role="presentation" />
+                    <img src={user.avatar_thumb} role="presentation" alt={user.nickname} />
                   </div>
                   <div className="c-user-rank__user__center">
                     <div className="c-user-rank__user__center__name">
@@ -45,6 +47,7 @@ class UserRank extends React.Component {
                     <p className="c-user-rank__user__center__signature">{user.signature}</p>
                     }
                   </div>
+                  <div className="c-user-rank__user__number">{user.index + 1}</div>
                 </div>
               </a>
             );
