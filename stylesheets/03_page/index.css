@@ -98,6 +98,48 @@
   white-space: pre-wrap;
 }
 
+.c-user-rank__user__center__twitter__wrapper {
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.c-user-rank__user__center__twitter {
+  display: flex;
+  align-items: center;
+  background-color: #00a1f9;
+  padding-right: 8px;
+  border-radius: 5px;
+}
+
+.c-user-rank__user__center__twitter:hover {
+  opacity: 0.5;
+}
+
+.c-user-rank__user__center__twitter img {
+  width: 25px;
+  height: 25px;
+  border-radius: 5px;
+}
+
+.c-user-rank__user__center__instagram {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  padding-right: 8px;
+  border-radius: 5px;
+  color: black;
+}
+
+.c-user-rank__user__center__instagram:hover {
+  opacity: 0.5;
+}
+
+.c-user-rank__user__center__instagram img {
+  width: 25px;
+  height: 25px;
+  border-radius: 5px;
+}
+
 .c-user-rank__user__number {
   font-size: 60px;
   font-weight: bold;

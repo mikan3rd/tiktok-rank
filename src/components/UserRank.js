@@ -29,9 +29,11 @@ class UserRank extends React.Component {
                 target="_blank"
               >
                 <div className="c-user-rank__user">
+
                   <div className="c-user-rank__user__left">
                     <img src={user.avatar_thumb} role="presentation" alt={user.nickname} />
                   </div>
+
                   <div className="c-user-rank__user__center">
                     <div className="c-user-rank__user__center__name">
                       <div className="c-user-rank__user__center__name__nickname">
@@ -46,7 +48,40 @@ class UserRank extends React.Component {
                     {user.signature &&
                     <p className="c-user-rank__user__center__signature">{user.signature}</p>
                     }
+                    {user.twitter_name &&
+                    <div>
+                      <div className="c-user-rank__user__center__twitter__wrapper">
+                      <a
+                        className="c-user-rank__user__center__twitter"
+                        href={`https://twitter.com/${user.twitter_name}`}
+                        target="_blank"
+                      >
+                        <img src="./images/icon_twitter.png" role="presentation"/>
+                        <div>@{user.twitter_name}</div>
+                      </a>
+                      </div>
+                    </div>
+                    }
+                    {user.ins_id &&
+                    <div>
+                      <div className="c-user-rank__user__center__twitter__wrapper">
+                      <a
+                        className="c-user-rank__user__center__instagram"
+                        href={`https://www.instagram.com/${user.ins_id}/`}
+                        target="_blank"
+                      >
+                        <img src="./images/icon_instagram.jpg" role="presentation"/>
+                        <div>@{user.ins_id}</div>
+                      </a>
+                      </div>
+                    </div>
+                    }
                   </div>
+
+                  {/* <div className="c-user-rank__user__right">
+
+                  </div> */}
+
                   <div className="c-user-rank__user__number">{user.index + 1}</div>
                 </div>
               </a>
