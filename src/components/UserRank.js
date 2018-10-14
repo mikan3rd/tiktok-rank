@@ -1,4 +1,5 @@
 import React from 'react';
+import {Icon} from 'react-onsenui';
 
 import LazyImg from './Shared/LazyImg';
 import Paginator from './Shared/Paging';
@@ -61,6 +62,16 @@ class UserRank extends React.Component {
 
                   <div className="c-user-rank__user__left">
                     <img src={user.avatar_thumb} role="presentation" alt={user.nickname} />
+                    <div className="c-user-rank__user__left__stats">
+                      <Icon
+                        icon="ion-heart"
+                        size={20}
+                        style={{color: 'red', marginRight: '4px'}}
+                      />
+                      <div className="c-user-rank__user__left__stats__num">
+                        {Number(user.total_favorited).toLocaleString()}
+                      </div>
+                    </div>
                   </div>
 
                   <div className="c-user-rank__user__center">

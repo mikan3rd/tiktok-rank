@@ -63,8 +63,19 @@
 }
 
 .c-user-rank__user__left {
-  width: 100px;
-  height: 100px;
+  /* width: 100px;
+  height: 100px; */
+}
+
+.c-user-rank__user__left__stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.c-user-rank__user__left__stats__num {
+  height: 20px;
 }
 
 .c-user-rank__user__left img {
