@@ -178,13 +178,22 @@
 }
 
 .c-paginator {
-  display: flex;
+  /* display: inline-flex; */
   align-items: center;
+  /* flex-wrap: wrap; */
   justify-content: center;
-  overflow-x: scroll;
+  overflow: scroll;
+  width: 100%;
+  white-space:nowrap;
+  text-align: center;
+}
+
+.c-paginator div {
+  display: inline-block;
 }
 
 .c-paginator__page {
+  display: inline-block;
   margin: 10px 5px;
   padding: 5px 8px;
   color: gray;
