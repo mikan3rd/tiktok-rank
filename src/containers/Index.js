@@ -31,7 +31,9 @@ class Index extends React.Component {
 
     return (
       <div className="p-index__wrapper">
+
         <LoadingModal isLoading={isLoading} />
+
         <div className="p-index">
           <div className="p-index__title">
             <img src="./images/title.jpg" role="presentation" />
@@ -42,7 +44,7 @@ class Index extends React.Component {
             <a
               href="https://twitter.com/intent/tweet"
               className="twitter-share-button"
-              data-hashtags="TikTok"
+              data-hashtags="TikTok,TikTokerと繋がりたい"
               data-size="large"
             >
                 Tweet

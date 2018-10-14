@@ -10,11 +10,12 @@ export default function* (): Generator<*, *, *> {
 }
 
 function* getUserResult(action) : Generator<*, *, *> {
-  const {page} = action.payload;
-  const params = {
-    page,
-  }
+
+  yield put(Actions.changeValueForKey({key: 'isLoading', value: true}));
+
+  const params = action.payload;
   const response = yield call(TikTokApi.getUserList, params);
+  // console.log(response)
 
   if (response.status === 200) {
     yield put(Actions.changeValueForKey({key: 'userResult', value: response.data}));

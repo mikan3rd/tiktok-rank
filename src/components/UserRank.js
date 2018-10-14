@@ -1,11 +1,31 @@
 import React from 'react';
 
-import LazyImg from './Shared/LazyImg'
+import LazyImg from './Shared/LazyImg';
+import Paginator from './Shared/Paging';
+
 
 class UserRank extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      page: 1,
+    }
+  }
+
   componentWillMount() {
-    this.props.getUserResult({page: 1});
+    this.getUserResult();
+  }
+
+  getUserResult = () => {
+    const {page} = this.state;
+    this.props.getUserResult({
+      page,
+    });
+  }
+
+  changeParams = ({key, value}) => {
+    this.setState({[key]: value}, () => this.getUserResult());
   }
 
   render() {
@@ -15,10 +35,19 @@ class UserRank extends React.Component {
       paging,
     } = this.props.userResult;
 
-    console.log(user_list)
+    // console.log(this.state)
+    // console.log(user_list)
 
     return (
       <div className="c-user-rank">
+
+        {paging &&
+        <Paginator
+          paging={paging}
+          changeParams={this.changeParams}
+        />
+        }
+
         <div className="c-user-rank__list">
           {user_list && user_list.map((user, index) => {
             return (
@@ -104,6 +133,14 @@ class UserRank extends React.Component {
             );
           })}
         </div>
+
+        {paging &&
+        <Paginator
+          paging={paging}
+          changeParams={this.changeParams}
+        />
+        }
+
       </div>
     )
   }

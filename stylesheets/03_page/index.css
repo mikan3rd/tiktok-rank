@@ -34,7 +34,7 @@
 
 .p-index__tweet {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 
@@ -43,6 +43,10 @@
   transition: all 0.4s ease;
   border-top: 2px solid rgba(255, 255, 255, 0.2);
   display: block;
+}
+
+.c-user-rank__user__wrapper:last-of-type {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .c-user-rank__user__wrapper:hover {
@@ -171,4 +175,27 @@
   bottom: 0px;
   color: gray;
   z-index: 1;
+}
+
+.c-paginator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: scroll;
+}
+
+.c-paginator__page {
+  margin: 10px 5px;
+  padding: 5px 8px;
+  color: gray;
+  border: 1px solid gray;
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: 5px;
+}
+
+.c-paginator__page--current {
+  background-color: #ccc;
+  border: 1px solid #ccc;
+  color: black;
 }
