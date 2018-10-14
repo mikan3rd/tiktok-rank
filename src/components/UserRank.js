@@ -76,6 +76,22 @@ class UserRank extends React.Component {
                       </div>
                     </div>
                     }
+
+                    {user.youtube_channel_id && user.youtube_channel_title &&
+                    <div>
+                      <div className="c-user-rank__user__center__twitter__wrapper">
+                      <a
+                        className="c-user-rank__user__center__youtube"
+                        href={`https://www.youtube.com/channel/${user.youtube_channel_id}`}
+                        target="_blank"
+                      >
+                        <img src="./images/icon_youtube.png" role="presentation"/>
+                        <div>{user.youtube_channel_title}</div>
+                      </a>
+                      </div>
+                    </div>
+                    }
+
                   </div>
 
                   {/* <div className="c-user-rank__user__right">
