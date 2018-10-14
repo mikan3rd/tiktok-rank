@@ -2,6 +2,7 @@ import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {Page} from 'react-onsenui';
+import Modal from 'react-modal';
 
 import {IndexActions} from '../modules/Index';
 import UserRank from '../components/UserRank';
@@ -11,6 +12,10 @@ import '../../stylesheets/03_page/index.css';
 
 
 class Index extends React.Component {
+
+  componentDidMount() {
+    Modal.setAppElement('.p-index__wrapper');
+  }
 
   render() {
 
@@ -32,6 +37,18 @@ class Index extends React.Component {
             <img src="./images/title.jpg" role="presentation" />
           </div>
           <p className="p-index__desc">日本版TikTokをランキング形式でまとめた非公式サイトです</p>
+
+          <div className="p-index__tweet">
+            <a
+              href="https://twitter.com/intent/tweet"
+              className="twitter-share-button"
+              data-hashtags="TikTok"
+              data-size="large"
+            >
+                Tweet
+              </a>
+          </div>
+
           <UserRank
             getUserResult={getUserResult}
             userResult={userResult}

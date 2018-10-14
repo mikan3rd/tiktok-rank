@@ -13,10 +13,17 @@
   max-width: 750px;
   margin: 0 auto;
   overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
 }
 
 .p-index__title {
   text-align: center;
+}
+
+.p-index__title img{
+  width: 100%;
+  max-width: 500px;
 }
 
 .p-index__desc {
@@ -25,10 +32,12 @@
   margin-bottom: 20px;
 }
 
-.p-index__title img{
-  width: 100%;
-  max-width: 500px;
+.p-index__tweet {
+  text-align: center;
+  margin-bottom: 20px;
 }
+
+
 
 .c-user-rank__user__wrapper {
   transition: all 0.4s ease;
