@@ -84,16 +84,38 @@ class UserRank extends React.Component {
 
                   <div className="c-user-rank__user__left">
                     <img src={user.avatar_thumb} role="presentation" alt={user.nickname} />
+
                     <div className="c-user-rank__user__left__stats">
-                      <Icon
+
+                      {sort.value === 'total_favorited' &&
+                        <Icon
                         icon="ion-heart"
                         size={20}
                         style={{color: 'red', marginRight: '4px'}}
                       />
+                      }
+
+                      {sort.value === 'follower_count' &&
+                        <Icon
+                        icon="md-face"
+                        size={20}
+                        style={{color: '#fff', marginRight: '4px'}}
+                      />
+                      }
+
+                      {sort.value === 'aweme_count' &&
+                        <Icon
+                        icon="md-videocam"
+                        size={20}
+                        style={{color: '#fff', marginRight: '4px'}}
+                      />
+                      }
+
                       <div className="c-user-rank__user__left__stats__num">
-                        {Number(user.total_favorited).toLocaleString()}
+                        {Number(user[sort.value]).toLocaleString()}
                       </div>
                     </div>
+
                   </div>
 
                   <div className="c-user-rank__user__center">
