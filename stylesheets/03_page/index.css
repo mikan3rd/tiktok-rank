@@ -219,3 +219,14 @@
   border: 1px solid #ccc;
   color: black;
 }
+
+.react-select__wrapper {
+  margin: 30px 0 10px 0;
+}
+
+.react-select {
+  color: black;
+  z-index: 50;
+  width: 180px;
+  margin: 0 auto;
+}

@@ -1,8 +1,16 @@
 import React from 'react';
 import {Icon} from 'react-onsenui';
+import Select from "react-select";
 
 import LazyImg from './Shared/LazyImg';
 import Paginator from './Shared/Paging';
+
+
+const sortOptions = [
+  {value: 'total_favorited', label: 'ハートが多い順'},
+  {value: 'follower_count', label: 'ファンが多い順'},
+  {value: 'aweme_count', label: '動画が多い順'},
+]
 
 
 class UserRank extends React.Component {
@@ -11,6 +19,7 @@ class UserRank extends React.Component {
     super(props);
     this.state = {
       page: 1,
+      sort: sortOptions[0],
     }
   }
 
@@ -19,9 +28,10 @@ class UserRank extends React.Component {
   }
 
   getUserResult = () => {
-    const {page} = this.state;
+    const {page, sort} = this.state;
     this.props.getUserResult({
       page,
+      sort: sort.value,
     });
   }
 
@@ -30,6 +40,8 @@ class UserRank extends React.Component {
   }
 
   render() {
+
+    const {sort} = this.state;
 
     const {
       user_list,
@@ -41,6 +53,16 @@ class UserRank extends React.Component {
 
     return (
       <div className="c-user-rank">
+
+        <div className="react-select__wrapper">
+        <Select
+          className="react-select"
+          value={sort}
+          isClearable={false}
+          options={sortOptions}
+          onChange={(option) => this.changeParams({key: 'sort', value: option})}
+        />
+        </div>
 
         {paging &&
         <Paginator
@@ -133,10 +155,6 @@ class UserRank extends React.Component {
                     }
 
                   </div>
-
-                  {/* <div className="c-user-rank__user__right">
-
-                  </div> */}
 
                   <div className="c-user-rank__user__number">{user.index + 1}</div>
                 </div>
