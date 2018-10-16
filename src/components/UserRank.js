@@ -12,6 +12,12 @@ const sortOptions = [
   {value: 'aweme_count', label: '動画が多い順'},
 ]
 
+const genderOptions = [
+  {value: '1', label: '男'},
+  {value: '2', label: '女'},
+  {value: '0', label: 'その他'},
+]
+
 
 class UserRank extends React.Component {
 
@@ -20,6 +26,7 @@ class UserRank extends React.Component {
     this.state = {
       page: 1,
       sort: sortOptions[0],
+      gender: [],
     }
   }
 
@@ -28,10 +35,12 @@ class UserRank extends React.Component {
   }
 
   getUserResult = () => {
-    const {page, sort} = this.state;
+    const {page, sort, gender} = this.state;
+
     this.props.getUserResult({
       page,
       sort: sort.value,
+      gender: gender.map(g => g.value),
     });
   }
 
@@ -41,7 +50,10 @@ class UserRank extends React.Component {
 
   render() {
 
-    const {sort} = this.state;
+    const {
+      sort,
+      gender,
+    } = this.state;
 
     const {
       user_list,
@@ -61,6 +73,18 @@ class UserRank extends React.Component {
           isClearable={false}
           options={sortOptions}
           onChange={(option) => this.changeParams({key: 'sort', value: option})}
+        />
+        </div>
+
+        <div className="react-select__wrapper">
+        <Select
+          className="react-select__multi"
+          value={gender}
+          isClearable={true}
+          options={genderOptions}
+          onChange={(option) => this.changeParams({key: 'gender', value: option})}
+          isMulti
+          placeholder="指定なし"
         />
         </div>
 
