@@ -21,9 +21,10 @@ const genderOptions = [
 const accountOptions = [
   {value: '人気クリエイター', label: '人気クリエイター'},
   {value: '認証済みアカウント', label: '認証済みアカウント'},
-  {value: 'ハロウィン仮装キング', label: 'ハロウィン仮装キング'},
-  {value: 'ハロウィン仮装クイーン', label: 'ハロウィン仮装クイーン'},
-  {value: '公式アカウント', label: '公式アカウント'},
+  {value: 'バッジなし', label: 'バッジなし'},
+  // {value: 'ハロウィン仮装キング', label: 'ハロウィン仮装キング'},
+  // {value: 'ハロウィン仮装クイーン', label: 'ハロウィン仮装クイーン'},
+  // {value: '公式アカウント', label: '公式アカウント'},
 ]
 
 
@@ -33,7 +34,7 @@ const groupedOptions = [
     options: genderOptions,
   },
   {
-    label: "アカウント",
+    label: "バッジ",
     options: accountOptions,
   }
 ];
