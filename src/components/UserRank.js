@@ -18,6 +18,25 @@ const genderOptions = [
   {value: '0', label: 'その他'},
 ]
 
+const accountOptions = [
+  {value: '人気クリエイター', label: '人気クリエイター'},
+  {value: '認証済みアカウント', label: '認証済みアカウント'},
+  {value: 'ハロウィン仮装キング', label: 'ハロウィン仮装キング'},
+  {value: 'ハロウィン仮装クイーン', label: 'ハロウィン仮装クイーン'},
+  {value: '公式アカウント', label: '公式アカウント'},
+]
+
+
+const groupedOptions = [
+  {
+    label: "性別",
+    options: genderOptions,
+  },
+  {
+    label: "アカウント",
+    options: accountOptions,
+  }
+];
 
 class UserRank extends React.Component {
 
@@ -26,7 +45,7 @@ class UserRank extends React.Component {
     this.state = {
       page: 1,
       sort: sortOptions[0],
-      gender: [],
+      options: [],
     }
   }
 
@@ -35,12 +54,12 @@ class UserRank extends React.Component {
   }
 
   getUserResult = () => {
-    const {page, sort, gender} = this.state;
+    const {page, sort, gender, options} = this.state;
 
     this.props.getUserResult({
       page,
       sort: sort.value,
-      gender: gender.map(g => g.value),
+      options: options.map(g => g.value),
     });
   }
 
@@ -52,7 +71,7 @@ class UserRank extends React.Component {
 
     const {
       sort,
-      gender,
+      options,
     } = this.state;
 
     const {
@@ -79,10 +98,10 @@ class UserRank extends React.Component {
         <div className="react-select__wrapper">
         <Select
           className="react-select__multi"
-          value={gender}
+          value={options}
           isClearable={true}
-          options={genderOptions}
-          onChange={(option) => this.changeParams({key: 'gender', value: option})}
+          options={groupedOptions}
+          onChange={(option) => this.changeParams({key: 'options', value: option})}
           isMulti
           placeholder="指定なし"
         />
