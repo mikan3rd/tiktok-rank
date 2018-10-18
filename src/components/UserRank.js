@@ -64,7 +64,7 @@ class UserRank extends React.Component {
   }
 
   changeParams = ({key, value}) => {
-    this.setState({[key]: value}, () => this.getUserResult());
+    this.setState({page: 1, [key]: value}, () => this.getUserResult());
   }
 
   render() {
