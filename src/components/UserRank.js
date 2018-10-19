@@ -7,8 +7,8 @@ import Paginator from './Shared/Paging';
 
 
 const sortOptions = [
-  {value: 'total_favorited', label: 'ハートが多い順'},
   {value: 'follower_count', label: 'ファンが多い順'},
+  {value: 'total_favorited', label: 'ハートが多い順'},
   {value: 'aweme_count', label: '動画が多い順'},
 ]
 
